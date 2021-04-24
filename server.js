@@ -15,3 +15,53 @@
 //POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 
 //DELETE /api/notes/:id should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the db.json file, remove the note with the given id property, and then rewrite the notes to the db.json file.
+/////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+//------------------------------- Require Section -------------------------------//
+const express = require("express");
+
+const fs = require("fs");
+
+//provides utilities for working with file and directory paths. It ultimately makes working with our file system a little more predictable
+const path = require("path");
+
+//create an instance of the express module and name it app
+const app = express();
+
+//set the port for the server. Process.env.PORT will be the dynamic port # when deploymed remotely; otherwise use 3001 for local port.
+const PORT = process.env.PORT || 3001;
+
+//import Routes directories. Program will automatically read the index.js file in these directories
+const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
+
+//require db json file
+const db = require("./db/db.json");
+//------------------------------- End of Require Section -------------------------------//
+////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+//------------------------------- Middleware Section -------------------------------//
+//middleware function mounted to server
+// parse incoming string or array data
+app.use(express.urlencoded({ extended: true }));
+
+// parse incoming JSON data
+app.use(express.json());
+
+//middleware to make static files available
+app.use(express.static("public"));
+
+//for /api use apiRoutes
+//for / index use htmlRoutes
+app.use("/api", apiRoutes);
+app.use("/", htmlRoutes);
+//
+//
+//------------------------------- End of Middleware Section -------------------------------//
+///////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+
+//listen
+app.listen(PORT, () => {
+  console.log(`API server now on port ${PORT}`);
+});
