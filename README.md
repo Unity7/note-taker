@@ -12,7 +12,8 @@ This web application allows users to input notes that can be saved and viewed at
 
 ## Installation
 
-No Installation necessary.
+No Installation necessary.\
+https://note-taker-ucla-2.herokuapp.com/
 
 ## Usage
 
