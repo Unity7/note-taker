@@ -2,7 +2,7 @@
 
 ## Description
 
-This web application allows users to input notes that can be saved and viewed at a later time.\
+This web application allows users to input notes that can be saved and viewed at a later time.
 
 ## Table of Contents
 
